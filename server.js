@@ -7,11 +7,18 @@ const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 const { chats } = require('./data/data');
 const path = require("path");
+const cors = require('cors');
 
-dotenv.config();
+dotenv.config({
+  path: "./.env",
+});
 connectDB();
 const app = express();
 app.use(express.json()); // to accept json data
+app.use(cors({
+  origin: 'https://chat-app-frontend-liart.vercel.app/', // replace with your frontend URL
+  credentials: true,
+}));
 
 // routes
 app.use('/api/user', userRoutes);
