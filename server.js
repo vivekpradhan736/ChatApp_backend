@@ -15,8 +15,17 @@ dotenv.config({
 connectDB();
 const app = express();
 app.use(express.json()); // to accept json data
+// Configure CORS
+const allowedOrigins = ['https://chat-app-frontend-liart.vercel.app'];
 app.use(cors({
-  origin: 'https://chat-app-frontend-liart.vercel.app/', // replace with your frontend URL
+  origin: (origin, callback) => {
+    // Check if the incoming origin is in the allowedOrigins array
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 
