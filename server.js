@@ -8,7 +8,6 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 const { chats } = require('./data/data');
 const path = require("path");
 const cors = require('cors');
-const cloudinary = require("cloudinary");
 
 dotenv.config({
   path: "./.env",
@@ -29,12 +28,6 @@ app.use(cors({
   },
   credentials: true,
 }));
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
 
 // routes
 app.use('/api/user', userRoutes);
