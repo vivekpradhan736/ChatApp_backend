@@ -72,7 +72,9 @@ const server = app.listen(
   console.log(`Server running on PORT ${PORT}...`.yellow.bold)
 );
 
-const io = require("socket.io")(server, {
+const httpServer = createServer();
+
+const io = require("socket.io")(httpServer, {
   pingTimeout: 60000,
   cors: {
     origin: 'https://chat-app-frontend-liart.vercel.app',
