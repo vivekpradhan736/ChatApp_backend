@@ -10,6 +10,7 @@ const path = require("path");
 const cors = require('cors');
 const cloudinary = require("cloudinary");
 const {createServer} = require("http");
+const bodyParser = require('body-parser');
 
 dotenv.config({
   path: "./.env",
