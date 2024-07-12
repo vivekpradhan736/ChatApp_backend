@@ -8,13 +8,16 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware.js");
 const { chats } = require('./data/data');
 const path = require("path");
 const cors = require('cors');
+const cloudinary = require("cloudinary");
+const {createServer} = require("http");
 
 dotenv.config({
   path: "./.env",
 });
 connectDB();
 const app = express();
-app.use(express.json()); // to accept json data
+app.use(express.json({ limit: '10mb' })); // Increase the request size limit
+app.use(bodyParser.json({ limit: '10mb' }));
 // Configure CORS
 const allowedOrigins = ['https://chat-app-frontend-liart.vercel.app'];
 app.use(cors({
@@ -28,6 +31,12 @@ app.use(cors({
   },
   credentials: true,
 }));
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // routes
 app.use('/api/user', userRoutes);

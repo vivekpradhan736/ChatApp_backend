@@ -169,25 +169,19 @@ const changeGroupPic = asyncHandler(async (req, res) => {
 // @route   DELETE /api/chat/contactremove
 // @access  Protected
 const removeContact = asyncHandler(async (req, res) => {
-  console.log("vivek")
   const { chatId } = req.body;
-  console.log("chatId", chatId)
-
-  const removed = await Chat.findByIdAndDelete(
-    chatId,
-    {
-      new: true,
-    }
-  )
-  console.log("removed", removed)
-
-  if (!removed) {
-    console.log("first error")
-    res.status(404);
-    throw new Error("Chat Not Found");
-  } else {
-    console.log("success")
-    res.json(removed);
+  try {
+    const chat = await Chat.findById(chatId);
+  
+    await chat.deleteOne();
+  
+    res.status(200).json({
+      success: true,
+      message: "Chat successfully deletion",
+    });
+    } catch (error) {
+      console.error("Error during chat deleted:", error);
+      res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 });
 

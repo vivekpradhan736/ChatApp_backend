@@ -12,6 +12,11 @@ const messageSchema = new mongoose.Schema(
     chat: { type: mongoose.Schema.Types.ObjectId, ref: 'Chat' },
     readBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     attachments: [attachmentSchema], // Define attachments as an array of attachmentSchema
+    isDeletedChat: {
+      type: Boolean,
+      ref: 'Chat',
+      default: false,
+    }
   },
   { timestamps: true }
 );
