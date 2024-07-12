@@ -18,7 +18,7 @@ dotenv.config({
 connectDB();
 const app = express();
 app.use(express.json({ limit: '10mb' })); // Increase the request size limit
-app.use(bodyParser.json({ limit: '10mb' }));
+// app.use(bodyParser.json({ limit: '10mb' }));
 // Configure CORS
 const allowedOrigins = ['https://chat-app-frontend-liart.vercel.app'];
 app.use(cors({
