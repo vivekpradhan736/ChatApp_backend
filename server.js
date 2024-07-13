@@ -9,15 +9,16 @@ const { chats } = require('./data/data');
 const path = require("path");
 const cors = require('cors');
 const cloudinary = require("cloudinary");
-const {createServer} = require("http");
-const bodyParser = require('body-parser');
+// const {createServer} = require("http");
+// const bodyParser = require('body-parser');
 
 dotenv.config({
   path: "./.env",
 });
 connectDB();
 const app = express();
-app.use(express.json({ limit: '10mb' })); // Increase the request size limit
+app.use(express.json());
+// app.use(express.json({ limit: '10mb' })); // Increase the request size limit
 // app.use(bodyParser.json({ limit: '10mb' }));
 // Configure CORS
 const allowedOrigins = ['https://chat-app-frontend-liart.vercel.app'];
@@ -72,9 +73,9 @@ const server = app.listen(
   console.log(`Server running on PORT ${PORT}...`.yellow.bold)
 );
 
-const httpServer = createServer();
+// const httpServer = createServer();
 
-const io = require("socket.io")(httpServer, {
+const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
     origin: 'https://chat-app-frontend-liart.vercel.app',
